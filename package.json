@@ -1,0 +1,22 @@
+{
+  "name": "team-13",
+  "version": "1.0.0",
+  "description": "## Motivation A recommendation engine to suggest Nobel prizes related to a Nobel prize the website user is currently viewing. Inspired by recommendation engines used by Amazon and Netflix, with the aim to increase website user retention rates.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cfg-london/team-13.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cfg-london/team-13/issues"
+  },
+  "homepage": "https://github.com/cfg-london/team-13#readme",
+  "dependencies": {
+    "express": "^4.16.2"
+  }
+}
