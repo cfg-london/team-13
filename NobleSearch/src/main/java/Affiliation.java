@@ -2,6 +2,7 @@ public class Affiliation {
 
   String name;
   String city;
+  String country;
 
   public Affiliation(String name, String city, String country) {
     this.name = name;
@@ -9,7 +10,13 @@ public class Affiliation {
     this.country = country;
   }
 
-  String country;
 
-
+  @Override
+  public String toString() {
+    return "Affiliation{" +
+        "name='" + name + '\'' +
+        ", city='" + city + '\'' +
+        ", country='" + country + '\'' +
+        '}';
+  }
 }
