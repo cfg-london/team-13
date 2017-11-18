@@ -18,3 +18,5 @@ Alex Clarke
 Pranav Kalidindi
 
 Qiang Feng
+
+Nikolay Smirnov
