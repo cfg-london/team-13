@@ -19,4 +19,4 @@ Pranav Kalidindi
 
 Qiang Feng
 
-Nik
+Nikolay Smirnov
