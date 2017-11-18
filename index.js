@@ -18,6 +18,26 @@ con.connect(function(err) {
     }
   })
 
+  // Add headers
+  app.use(function (req, res, next) {
+
+      // Website you wish to allow to connect
+      res.setHeader('Access-Control-Allow-Origin', 'http://10.241.61.133:8085');
+
+      // Request methods you wish to allow
+      res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+
+      // Request headers you wish to allow
+      res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+
+      // Set to true if you need the website to include cookies in the requests sent
+      // to the API (e.g. in case you use sessions)
+      res.setHeader('Access-Control-Allow-Credentials', true);
+
+      // Pass to next layer of middleware
+      next();
+  });
+
   app.get('/similar', async function(req, res) {
     if (err) {
       res.send('Oh no')
@@ -26,6 +46,8 @@ con.connect(function(err) {
                   u1 JOIN ranks r ON r.from=u1.id \
                      JOIN urls u2 ON r.to=u2.id \
                   WHERE u1.url='"+ req.query.url +"'", function(err, result, field) {
+
+
 
         res.send(result);
         console.log(err + "|"+ field);
