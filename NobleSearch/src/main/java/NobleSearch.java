@@ -5,9 +5,7 @@ import com.google.cloud.language.v1.Document;
 import com.google.cloud.language.v1.Document.Type;
 import com.google.cloud.language.v1.EncodingType;
 import com.google.cloud.language.v1.Entity;
-import com.google.cloud.language.v1.EntityMention;
 import com.google.cloud.language.v1.LanguageServiceClient;
-import com.google.cloud.language.v1.Sentiment;
 import com.google.gson.Gson;
 import com.mysql.cj.api.jdbc.Statement;
 import com.mysql.cj.jdbc.PreparedStatement;
@@ -104,46 +102,8 @@ public class NobleSearch {
          }
        }
        System.out.println("Parsed all prizes");
-       prizes.stream().forEach(prize -> {
-         List<Prize> prizes1 = new ArrayList<>();
-         prizes.stream().map(prize1 -> {
-           prize1.score = 0;
-           for (String string : prize1.motivationParsed) {
-             if (prize.motivationParsed.contains(string)) {
-               prize1.score+= WEIGHTING_MOTIVATION;
-             }
-           }
-           if (prize.category.equals(prize1.category)) {
-             prize1.score+= WEIGHTING_CATEGORY;
-           }
-           if(prize.year.equals(prize1.year)) {
-             prize1.score += WEIGHTING_YEAR;
-           }
-           for(int i = 0; i < prize.affiliations.length; i++){
-             for(int j = 0; j < prize1.affiliations.length; j++){
-               if(prize.affiliations[i].country.equals(prize1.affiliations[j].country)){
-                 prize1.score += WEIGHTING_COUNTRY;
-               }
-               if(prize.affiliations[i].city.equals(prize1.affiliations[j].city)){
-                 prize1.score += WEIGHTING_CITY;
-               }
-               if(prize.affiliations[i].name.equals(prize1.affiliations[j].name)){
-                 prize1.score += WEIGHTING_AFFILIATION_NAME ;
-               }
-             }
-           }
 
-           prize1.score += ((Double) (Math.log(1 + pages.getOrDefault(prize1.toURL() + "index.html", 0)) * 0.4)).intValue();
-           return prize1;
-         }).sorted().limit(4).forEach(p -> prizes1.add(p));
-         prize.relativeScore = new HashMap<>();
-         for (Prize prize1 : prizes1) {
-           if (prize1.equals(prize)) {
-             continue;
-           }
-           prize.relativeScore.putIfAbsent(prize1, prize1.score);
-         }
-       });
+       scorePrizes(pages, prizes);
        System.out.println(Arrays.toString(prizes.toArray()));
 
        Connection connection = null;
@@ -242,4 +202,47 @@ public class NobleSearch {
        System.out.println("File not found execption :" + e);
      }
    }
+
+  private static void scorePrizes(Map<String, Integer> pages, List<Prize> prizes) {
+    prizes.stream().forEach(prize -> {
+      List<Prize> prizes1 = new ArrayList<>();
+      prizes.stream().map(prize1 -> {
+        prize1.score = 0;
+        for (String string : prize1.motivationParsed) {
+          if (prize.motivationParsed.contains(string)) {
+            prize1.score+= WEIGHTING_MOTIVATION;
+          }
+        }
+        if (prize.category.equals(prize1.category)) {
+          prize1.score+= WEIGHTING_CATEGORY;
+        }
+        if(prize.year.equals(prize1.year)) {
+          prize1.score += WEIGHTING_YEAR;
+        }
+        for(int i = 0; i < prize.affiliations.length; i++){
+          for(int j = 0; j < prize1.affiliations.length; j++){
+            if(prize.affiliations[i].country.equals(prize1.affiliations[j].country)){
+              prize1.score += WEIGHTING_COUNTRY;
+            }
+            if(prize.affiliations[i].city.equals(prize1.affiliations[j].city)){
+              prize1.score += WEIGHTING_CITY;
+            }
+            if(prize.affiliations[i].name.equals(prize1.affiliations[j].name)){
+              prize1.score += WEIGHTING_AFFILIATION_NAME ;
+            }
+          }
+        }
+
+        prize1.score += ((Double) (Math.log(1 + pages.getOrDefault(prize1.toURL() + "index.html", 0)) * 0.4)).intValue();
+        return prize1;
+      }).sorted().limit(4).forEach(p -> prizes1.add(p));
+      prize.relativeScore = new HashMap<>();
+      for (Prize prize1 : prizes1) {
+        if (prize1.equals(prize)) {
+          continue;
+        }
+        prize.relativeScore.putIfAbsent(prize1, prize1.score);
+      }
+    });
+  }
 }
