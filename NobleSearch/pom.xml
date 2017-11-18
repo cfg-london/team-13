@@ -33,7 +33,11 @@
       <version>2.8.1</version>
       <scope>compile</scope>
     </dependency>
+    <dependency>
+      <groupId>com.google.apis</groupId>
+      <artifactId>google-api-services-analytics</artifactId>
+      <version>v3-rev142-1.23.0</version>
+    </dependency>
   </dependencies>
-
 
 </project>
