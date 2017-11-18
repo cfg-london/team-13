@@ -1,0 +1,174 @@
+/* CSS for education games */
+/* 
+Colour scheme:
+
+LIGHT #2f3d7e
+MIDDLE #5d2957
+DARK #16213c
+
+Base-url: /educational/medicine/bloodtypinggame/
+
+background-color: #630300;
+	color: #B20400;
+
+*/
+
+@charset "utf-8";
+/* Base colours */
+
+.gameMainColor, #edu_flash_area {
+	background-color:#2f3d7e; /* Ljus */
+}
+.gameSecondColor, #edu_games_page_area .edu_game_three_column a:hover, #edu_games_page_area .edu_game_two_column a:hover, #edu_games_page_area .edu_thick_line .edu_user_comments .inner a:hover, #edu_games_page_area .edu_thick_line a:hover {
+	background-color:#490200; /* Mörk */
+}
+.gameThirdColor, .edu_user_comments, .edu_thick_line a:link, .edu_thick_line a:visited {
+	/*background-color:#5d2957;*/
+	/*background-color:#932142;*/
+	background-color:#000000; /* Background ticker tape user comments */
+}
+
+.edu_user_comments, .edu_user_comments a, .edu_thick_line a:link, .edu_thick_line a:visited {
+	/*Color of text inside ticker tape user comments*/
+	color: #ffffff;
+	/*color: #5c7ac2;*/
+}
+
+#edu_games_page_area h1 {
+	color: #16213c; /* Mörk */
+}
+
+.edu_thick_line {
+	border-bottom-color: #16213c; /* Mörk */
+}
+
+.edu_thin_line {
+        padding-top: 2px;
+	border-top-color: #16213c; /* Mörk */
+}
+
+.edu_links_title {
+	color: #FFFFFF;
+}
+ 
+/* #edu_games_page_area .edu_game_three_column .edu_game_column_right .edu_links_area a, #edu_games_page_area .edu_game_two_column .edu_game_column_right .edu_links_area a {
+	color: #FFFFFF;
+	border-bottom-color: #307497;
+}*/
+
+#edu_games_page_area .edu_game_three_column a, #edu_games_page_area .edu_game_two_column a {
+	color: #FFFFFF;
+	border-bottom-color: #307497;
+}
+
+
+#edu_games_page_area .blood_hiscore {
+	border: 2px solid #932142;
+	position: relative;
+	margin-top: -1px;
+}
+
+.blood_hiscore_wrap {
+	background-color: #fff;
+	overflow: hidden;
+}
+
+.blood_hiscore ul {
+	width: 193px;
+	margin: 0px;
+	padding: 15px 40px 15px 20px;
+}
+
+.blood_hiscore ul li {
+	list-style-type: none;
+	padding: 5px 0px 5px;
+}
+
+.blood_hiscore ul.left {
+	float: left;
+	border-right: 2px solid #932142;
+}
+
+.blood_hiscore ul.right {
+	float: right;
+}
+
+.blood_hiscore span {
+	float: right;
+}
+
+#edu_games_page_area .blood_hiscore table {
+	padding:10px 0px 15px 0px;
+}
+
+#edu_games_page_area .blood_hiscore td {
+	padding:3px 3px 3px 15px;
+}
+
+#edu_games_page_area .blood_hiscore .inverted {
+	background-color:#932142;
+	color: #FFFFFF;
+	padding:5px 15px 5px 15px;
+}
+
+ 
+#edu_games_page_credit {
+	border: 1px solid #D3CFCB;
+}
+
+/* Background Images */
+
+.edu_game_two_column, .edu_game_three_column {
+	background-image: url(../images/edu_infobox.jpg);
+	background-repeat: repeat-y;
+	background-position: left top;
+}
+
+ul.edu_game_tools a.rate {
+	background-image: url(../images/edu_rate_btn.jpg);
+	background-repeat: no-repeat;
+	background-position: left top;
+}
+
+ul.edu_game_tools a.rate:hover {
+	background-image: url(../images/edu_rate_btn_mo.gif);
+	background-repeat: no-repeat;
+	background-position: left top;
+}
+
+ul.edu_game_tools a.comments {
+	background-image: url(../images/edu_comments_btn.jpg);
+	background-repeat: no-repeat;
+	background-position: left top;
+}
+
+ul.edu_game_tools a.comments:hover {
+	background-image: url(../images/edu_comments_btn_mo.gif);
+	background-repeat: no-repeat;
+	background-position: left top;
+}
+
+ul.edu_game_tools a.friend {
+	background-image: url(../images/edu_tell_a_friend_btn.jpg);
+	background-repeat: no-repeat;
+	background-position: left top;
+}
+
+ul.edu_game_tools a.friend:hover {
+	background-image: url(../images/edu_tell_a_friend_btn_mo.gif);
+	background-repeat: no-repeat;
+	background-position: left top;
+}
+
+#edu_games_page_credit {
+	background-image: url(/educational/images/edu_sponsor_tonebox.jpg);
+	background-repeat: repeat-y;
+	background-position: left top;
+}
+
+#edu_games_page_credit .edu_games_page_credittext" {
+	width:515px;
+}
+
+
+
