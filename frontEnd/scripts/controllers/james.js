@@ -5,8 +5,8 @@ myApp.controller('James', function ($scope, $rootScope, $location,$window,$windo
     console.log("");
   };
   //TOBE REPLACED WITH DATA REQUEST
-  
-  var testData = [
+  console.log("proba");
+  $scope.testData = [
             { title:"Titlu1",
               description:"Description1",
               imageURL:"pic/pic1",
@@ -25,24 +25,28 @@ myApp.controller('James', function ($scope, $rootScope, $location,$window,$windo
               link:"/"
             }];
 
- // $scope.recommendations = $sce.trustAsHtml(recommendationsTags);
-  $scope.recommendations = $sce.trustAsHtml(recommendationsTags);
-  $scope.recommendationsTags = $scope.generate (testData.lenght); 
-  $scope.generate= function(nr){
-     var recommendationsTags = "";
-     var start = '<div class="recommended-slider-item slick-slide slick-active" data-slick-index="1" aria-hidden="false" tabindex="0" role="option" aria-describedby="slick-slide01" style="width: 144px;"><a href="';
+  //$scope.recommendations = $sce.trustAsHtml(recommendationsTags);
+ console.log($scope.testData.length);
+  $scope.recommendationsTags = $scope.generateRecomandations ($scope.testData.length); 
+  
+  $scope.generateRecomandations= function(nr){
+     recommendationsTags = "";
      for(var i=0; i < nr; i++){
-       recommendationsTags += start 
-                           + testData[i].link 
-                           + '" tabindex="0"><img class="recommended-slider-img" src="' 
-                           + testData[i].imageURL 
-                           + ' tabindex="0">'
-                           + testData[i].title 
-                           + '</a>'
-                           + '<p class="recommended-slider-descr">'
-                           + testData[i].description
-                           +'</p></div>';
+       // recommendationsTags += '<div class="recommended-slider-item slick-slide slick-active" data-slick-index="1" aria-hidden="false" tabindex="0" role="option" aria-describedby="slick-slide01" style="width: 144px;"><a href="' 
+       //                     + testData[i].link 
+       //                     + '" tabindex="0"><img class="recommended-slider-img" src="' 
+       //                     + testData[i].imageURL 
+       //                     + ' tabindex="0">'
+       //                     + testData[i].title 
+       //                     + '</a>'
+       //                     + '<p class="recommended-slider-descr">'
+       //                     + testData[i].description
+       //                     +'</p></div>';
+       
+          recommendationsTags= recommendationsTags + i;
        }
+       console.log(recommendationsTags);
+       return recommendationsTags;
      }
 
     /*<div class="recommended-slider-item slick-slide slick-active" data-slick-index="1" aria-hidden="false" tabindex="0" role="option" aria-describedby="slick-slide01" style="width: 144px;">
