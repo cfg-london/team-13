@@ -1,0 +1,71 @@
+// <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-27848913-1', 'auto', 'nobel1'); 
+  ga('nobel1.set', 'dimension1', 'bm9iZWxwcml6ZS5vcmcgLSAyMDE3MDYxNA==');
+  ga('nobel1.send', 'pageview');
+// </script>
+
+function cookieConsent() {
+	var cookieConsentName = "COOKIE_CONSENT";
+	var cookieExpirationDays = 30;
+
+	var htmlMarkup = function() {
+		var html = 
+			'<div class="cookie-consent-container">' +
+				'<div class="row">' +
+					'<div class="content">This website uses cookies to improve user experience. By using our website you consent to all cookies in accordance with our <a href="/nobel_organizations/nobelmedia/nobelprize_org/privacy_policy.html" style="font-size: 12px">Cookie Policy</a>.</div>' +
+					'<button id="cookie-consent">I Understand</button>' +
+				'</div>' +
+			'</div>';
+
+		return html;
+	};
+	
+	var checkCookieConsentCookie = function() {
+		var cookieConsentAccept = false;
+		var cookies = document.cookie.split(";");
+		for (var i = 0; i < cookies.length; i++) {
+			var c = cookies[i].trim();
+			if (c.indexOf(cookieConsentName) == 0) {
+				cookieConsentAccept = c.substring(cookieConsentName + 1, c.length);
+			}
+		}
+
+		return cookieConsentAccept;
+	};
+	
+	var setCookieConsentCookie = function(consent) {
+		var d = new Date();
+		var expiresInDays = cookieExpirationDays * 24 * 60 * 60 * 1000;
+		d.setTime( d.getTime() + expiresInDays );
+		var expires = "expires=" + d.toGMTString();
+		document.cookie = cookieConsentName + '=' + consent + "; " + expires + ";path=/";
+		$(document).trigger("user_cookie_consent_changed", {'consent' : consent});
+	}
+	
+	var hideCookieConsent = function() {
+		$('.cookie-consent-container').animate({
+			opacity: 0,
+			height: 0
+		}, 200, function() {
+			$('.cookie-consent-container').hide(0);
+		});
+	};
+	
+	if (!checkCookieConsentCookie()) {
+		$('BODY').prepend(htmlMarkup);
+	}
+	else {
+		setCookieConsentCookie();
+	}
+	
+	$('button#cookie-consent').on("click", function() {
+		setCookieConsentCookie(true);
+		hideCookieConsent();
+		return false;
+	});
+}

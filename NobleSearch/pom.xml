@@ -37,8 +37,10 @@
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
       <version>6.0.6</version>
+      <groupId>com.google.apis</groupId>
+      <artifactId>google-api-services-analytics</artifactId>
+      <version>v3-rev142-1.23.0</version>
     </dependency>
   </dependencies>
-
 
 </project>

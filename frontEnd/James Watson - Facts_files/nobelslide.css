@@ -1,0 +1,76 @@
+.slideshow {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.slideshow li {
+	margin: 0;
+	color: #aaa;
+	font-size: 12px;
+	
+}
+
+.slideshow .byline {
+	position: absolute;
+	top: -40px;
+	left: 0;
+	width: 320px;
+	border-right: 1px solid #B7B3B4;
+	color: #B7B3B4;
+	text-align: right;
+	padding: 5px 10px;
+	height: 30px;
+	font-size: 11px;
+}
+
+.slideshow .caption {
+	color: #555250;
+	font-size: 11px;
+	padding: 10px 0 0 0;
+}
+
+.nobelslide-pager {
+	width: 150px;
+	height: 40px;
+	text-align: right;
+	color: #B7B3B4;
+}
+
+.nobelslide-pager .next,
+.nobelslide-pager .prev {
+	display: block;
+	float: left;
+	width: 22px;
+	height: 22px;
+	overflow: hidden;
+	text-indent: -1000px;
+	background: url(slideshow/slideshow_sprite.png) no-repeat;
+	text-align: left;
+	margin: 5px 2px;
+	border: 0 none;
+}
+
+.nobelslide-current {
+	display: block;
+	height: 22px;
+	margin: 10px 5px;
+	font-size: 11px;
+	float: left;
+}
+
+.nobelslide-pager .prev {
+	margin-left: 10px;
+}
+
+.nobelslide-pager .prev:hover {
+	background-position: left -25px;
+}
+
+.nobelslide-pager .next {
+	background-position: -25px top;
+}
+
+.nobelslide-pager .next:hover {
+	background-position: -25px -25px;
+}
