@@ -104,7 +104,7 @@ public class NobleSearch {
            prize1.score = 0;
            for (String string : prize1.motivationParsed) {
              if (prize.motivationParsed.contains(string)) {
-               prize1.score+= 1;
+               prize1.score+= 3;
              }
            }
            if (prize.category.equals(prize1.category)) {
@@ -113,6 +113,20 @@ public class NobleSearch {
            if(prize.year.equals(prize1.year)) {
              prize1.score += 1;
            }
+           for(int i = 0; i < prize.affiliations.length; i++){
+             for(int j = 0; j < prize1.affiliations.length; j++){
+               if(prize.affiliations[i].country.equals(prize1.affiliations[j].country)){
+                 prize1.score += 1;
+               }
+               if(prize.affiliations[i].city.equals(prize1.affiliations[j].city)){
+                 prize1.score += 1;
+               }
+               if(prize.affiliations[i].name.equals(prize1.affiliations[j].name)){
+                 prize1.score += 1;
+               }
+             }
+           }
+
            prize1.score += ((Double) (Math.log(1 + pages.getOrDefault(prize1.toURL() + "index.html", 0)) * 0.4)).intValue();
            return prize1;
          }).sorted().limit(4).forEach(p -> prizes1.add(p));
