@@ -1,16 +1,17 @@
 myApp.controller('James', function ($scope, $rootScope, $location,$window,$window,$sce) {
 
-  $scope.test = "de ce dracu nu merge..";
   $scope.init = function () {
     console.log("");
+    $scope.apiURL ="";
+    getdata($scope.apiURL);
   };
-  //TOBE REPLACED WITH DATA REQUEST
+
   console.log("proba");
-  $scope.testData = [
+  $scope.data = [
             { title:"Titlu1",
               description:"Description1",
-              imageURL:"pic/pic1",
-              link:"/"
+              imageURL:"https://www.nobelprize.org/images/recommend/medicine/medicine-short-facts.jpg",
+              link:""
               },
             { 
               title:"Titlu2",
@@ -25,28 +26,28 @@ myApp.controller('James', function ($scope, $rootScope, $location,$window,$windo
               link:"/"
             }];
 
-  //$scope.recommendations = $sce.trustAsHtml(recommendationsTags);
- console.log($scope.testData.length);
-  $scope.recommendationsTags = $scope.generateRecomandations ($scope.testData.length); 
-  
-  $scope.generateRecomandations= function(nr){
-     recommendationsTags = "";
+
+  generateRecomandations ($scope.data.length,); 
+  function generateRecomandations (nr){
+     console.log("is this even called..");
+     var recommendationsTags = "";
      for(var i=0; i < nr; i++){
-       // recommendationsTags += '<div class="recommended-slider-item slick-slide slick-active" data-slick-index="1" aria-hidden="false" tabindex="0" role="option" aria-describedby="slick-slide01" style="width: 144px;"><a href="' 
-       //                     + testData[i].link 
-       //                     + '" tabindex="0"><img class="recommended-slider-img" src="' 
-       //                     + testData[i].imageURL 
-       //                     + ' tabindex="0">'
-       //                     + testData[i].title 
-       //                     + '</a>'
-       //                     + '<p class="recommended-slider-descr">'
-       //                     + testData[i].description
-       //                     +'</p></div>';
-       
-          recommendationsTags= recommendationsTags + i;
+       recommendationsTags +='<div class="recommended-slider-item slick-slide slick-active" data-slick-index="1" aria-hidden="false" tabindex="0" role="option" aria-describedby="slick-slide01" style="width: 144px;"><a href="' 
+                           + $scope.data[i].link 
+                           + '" tabindex="0"><img class="recommended-slider-img" src="' 
+                           + $scope.data[i].imageURL 
+                           + '"><a class="recommended-slider-title" href="' 
+                           + $scope.data[i].link 
+                           +' tabindex="0">'
+                           + $scope.data[i].title 
+                           + '</a>'
+                           + '<p class="recommended-slider-descr">'
+                           + $scope.data[i].description
+                           +'</p></div>';
        }
+       
        console.log(recommendationsTags);
-       return recommendationsTags;
+       $scope.recommendations = $sce.trustAsHtml(recommendationsTags);
      }
 
     /*<div class="recommended-slider-item slick-slide slick-active" data-slick-index="1" aria-hidden="false" tabindex="0" role="option" aria-describedby="slick-slide01" style="width: 144px;">
@@ -56,24 +57,32 @@ myApp.controller('James', function ($scope, $rootScope, $location,$window,$windo
     </div>
     */
 
+    function getdata (apiURL){
+        console.log("getdata");
+        $.get(apiURL, function(data, status){
+                $scope.data = JSON.parse(data);
+                alert("Data: " + data + "\nStatus: " + status);
+                $scope.$apply();
+            });
+    }
 
-   // var jqxhr = $.ajax({
+    // var jqxhr = $.ajax({
 
-   //          method: 'POST',
-   //          url: "http://oppdev01.cloudapp.net:49003/api/tracker/SendAllInformation",
-   //          data: { information: informationstring },
-   //          //dataType: 'json',
-   //          crossDomain: true,
-   //          jsonp: false
-   //      })
+    //         method: 'GET',
+    //         url: apiURL,
+    //         data: { information: informationstring },
+    //         //dataType: 'json',
+    //         crossDomain: true,
+    //         jsonp: false
+    //     })
 
-   //      .done(function () {
-   //          document.getElementById('mesaj').innerText = "Success";
-   //      })
+    //     .done(function () {
+    //         document.getElementById('mesaj').innerText = "Success";
+    //     })
 
-   //      .fail( function(xhr, textStatus, errorThrown) {
-   //          document.getElementById('mesaj').innerText = xhr.status;
-   //          eroare();
-   //      });
+    //     .fail( function(xhr, textStatus, errorThrown) {
+    //         document.getElementById('mesaj').innerText = xhr.status;
+    //         eroare();
+    //     });
 
 });
