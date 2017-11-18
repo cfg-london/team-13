@@ -11,11 +11,8 @@ import com.google.cloud.language.v1.Sentiment;
 import com.google.gson.Gson;
 import com.mysql.cj.api.jdbc.Statement;
 import com.mysql.cj.jdbc.PreparedStatement;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.PrintWriter;
+
+import java.io.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -40,8 +37,10 @@ public class NobleSearch {
 
 
    public static void main(String... args) throws Exception {
+
+     String filePath = new File("").getAbsolutePath();
      try {
-       BufferedReader reader = new BufferedReader(new FileReader("/Users/pranav/team-13/NobleSearch/target/classes/NobelPrize.json"));
+       BufferedReader reader = new BufferedReader(new FileReader(filePath + "/NobleSearch/target/classes/NobelPrize.json"));
        Gson gson = new Gson();
        Laureates laureates;
        laureates = gson.fromJson(reader, Laureates.class);
@@ -49,7 +48,7 @@ public class NobleSearch {
 
 
        try {
-         BufferedReader reader1 = new BufferedReader(new FileReader("/Users/pranav/team-13/NobleSearch/src/main/resources/pageviews.csv"));
+         BufferedReader reader1 = new BufferedReader(new FileReader(filePath + "/NobleSearch/src/main/resources/pageviews.csv"));
 
          String[] values = reader1.lines().toArray(String[]::new);
          for(String value : values){
