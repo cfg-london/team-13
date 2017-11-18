@@ -13,8 +13,8 @@ Uses a Redis cache to store how closely each Nobel prize correlates to other Nob
 
 ### Team Members
 
-Pranav Kalidindi
-
 Alex Clarke
+
+Pranav Kalidindi
 
 Qiang Feng
