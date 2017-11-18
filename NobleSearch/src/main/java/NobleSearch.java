@@ -32,12 +32,13 @@ public class NobleSearch {
   private final static int WEIGHTING_COUNTRY = 1;
   private final static int WEIGHTING_CITY = 1;
   private final static int WEIGHTING_AFFILIATION_NAME = 1;
-
+  private final static int NUMBER_OF_RECOMMENDATIONS = 3;
 
    public static void main(String... args) throws Exception {
 
      String filePath = new File("").getAbsolutePath();
      try {
+       //Read JSON data on Nobel prizes, could be improved by getting API data in runtime
        BufferedReader reader = new BufferedReader(new FileReader(filePath + "/NobleSearch/target/classes/NobelPrize.json"));
        Gson gson = new Gson();
        Laureates laureates;
@@ -46,6 +47,8 @@ public class NobleSearch {
 
 
        try {
+         //Read data on page views for each Nobel prize, could be improved by getting API data in runtime
+         //by using Google Analytics API
          BufferedReader reader1 = new BufferedReader(new FileReader(filePath + "/NobleSearch/src/main/resources/pageviews.csv"));
 
          String[] values = reader1.lines().toArray(String[]::new);
@@ -56,13 +59,14 @@ public class NobleSearch {
        } catch (FileNotFoundException e){
          System.out.println(e.toString());
        }
-       System.out.println(Arrays.toString(pages.keySet().toArray()));
+       //System.out.println(Arrays.toString(pages.keySet().toArray()));
        //System.out.println(laureates.toString());
        // Instantiates a client
        List<Prize> prizes = new ArrayList<>();
        try (LanguageServiceClient language = LanguageServiceClient.create()) {
 
-
+         //Use Google NLP to find correlation between motivation texts
+         //Takes ~5min to process all data
          for (Laureate laureate : laureates.laureates) {
            String text = laureate.prizes[0].motivation;
            if (laureate.prizes[0].motivation == null) {
@@ -103,9 +107,11 @@ public class NobleSearch {
        }
        System.out.println("Parsed all prizes");
 
+       //Score each prize against all other prizes, based on prize details, page views and sentiment analysis
        scorePrizes(pages, prizes);
        System.out.println(Arrays.toString(prizes.toArray()));
 
+       //Push results to database
 //       Connection connection = null;
 //
 //       try {
@@ -190,8 +196,8 @@ public class NobleSearch {
 //
 
        try {
-
-         PrintWriter fileWriter = new PrintWriter("/Users/pranav/Desktop/output.txt", "UTF-8");
+        //Write results to text file to allow reuse of data without processing again
+         PrintWriter fileWriter = new PrintWriter(filePath + "/NobleSearch/src/main/resources/output.txt", "UTF-8");
          fileWriter.write(gson.toJson(prizes));
          fileWriter.close();
        }catch (FileNotFoundException e){
@@ -246,7 +252,7 @@ public class NobleSearch {
 
         prize1.score += ((Double) (Math.log(1 + pages.getOrDefault(prize1.toURL() + "index.html", 0)) * 0.4)).intValue();
         return prize1;
-      }).sorted().limit(4).forEach(p -> prizes1.add(p));
+      }).sorted().limit(NUMBER_OF_RECOMMENDATIONS).forEach(p -> prizes1.add(p));
       prize.relativeScore = new HashMap<>();
       for (Prize prize1 : prizes1) {
         if (prize1.equals(prize)) {
