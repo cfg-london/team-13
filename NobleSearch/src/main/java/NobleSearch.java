@@ -31,6 +31,13 @@ public class NobleSearch {
 
   private static List<String> ignoreNames = Arrays.asList("recognition", "services", "discovery", "discoveries", "law", "laws", "researches", "studies", "advancement", "service", "analysis", "means", "investigations", "merits");
 
+  private final static int WEIGHTING_MOTIVATION = 3;
+  private final static int WEIGHTING_CATEGORY = 4;
+  private final static int WEIGHTING_YEAR = 1;
+  private final static int WEIGHTING_COUNTRY = 1;
+  private final static int WEIGHTING_CITY = 1;
+  private final static int WEIGHTING_AFFILIATION_NAME = 1;
+
 
    public static void main(String... args) throws Exception {
      try {
@@ -104,25 +111,25 @@ public class NobleSearch {
            prize1.score = 0;
            for (String string : prize1.motivationParsed) {
              if (prize.motivationParsed.contains(string)) {
-               prize1.score+= 3;
+               prize1.score+= WEIGHTING_MOTIVATION;
              }
            }
            if (prize.category.equals(prize1.category)) {
-             prize1.score+= 4;
+             prize1.score+= WEIGHTING_CATEGORY;
            }
            if(prize.year.equals(prize1.year)) {
-             prize1.score += 1;
+             prize1.score += WEIGHTING_YEAR;
            }
            for(int i = 0; i < prize.affiliations.length; i++){
              for(int j = 0; j < prize1.affiliations.length; j++){
                if(prize.affiliations[i].country.equals(prize1.affiliations[j].country)){
-                 prize1.score += 1;
+                 prize1.score += WEIGHTING_COUNTRY;
                }
                if(prize.affiliations[i].city.equals(prize1.affiliations[j].city)){
-                 prize1.score += 1;
+                 prize1.score += WEIGHTING_CITY;
                }
                if(prize.affiliations[i].name.equals(prize1.affiliations[j].name)){
-                 prize1.score += 1;
+                 prize1.score += WEIGHTING_AFFILIATION_NAME ;
                }
              }
            }
