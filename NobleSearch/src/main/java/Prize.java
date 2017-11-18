@@ -69,6 +69,10 @@ public class Prize implements Comparable {
     return returnString;
   }
 
+  public String toURL() {
+    return "/nobel_prizes/" + category + "/laureates/" + year + "/";
+  }
+
   @Override
   public int compareTo(Object o) {
     if (o instanceof Prize) {
